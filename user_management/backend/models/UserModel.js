@@ -5,16 +5,21 @@ const UserSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     contactNumber: { type: String, required: true },
-    role: { 
-        type: String, 
-        enum: ["admin", "restaurantManager", "customer", "deliveryPerson"], 
-        default: "customer" 
+    role: {
+        type: String,
+        enum: ["admin", "restaurantManager", "customer", "deliveryPerson"],
+        default: "customer"
     },
-    isApproved: { 
-        type: Boolean, 
+    // Restaurant information for restaurant managers
+    restaurantInfo: {
+        name: { type: String },
+        address: { type: String }
+    },
+    isApproved: {
+        type: Boolean,
         default: function() {
             // Customers are approved automatically, others are not
-            return this.role === "customer"; 
+            return this.role === "customer";
         }
     }
 }, { timestamps: true });
